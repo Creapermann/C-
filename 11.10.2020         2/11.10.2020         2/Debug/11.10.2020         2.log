@@ -1,4 +1,0 @@
-﻿  11.10.2020         2.cpp
-C:\Users\Creap\OneDrive\Desktop\All C++ Projects\11.10.2020         2\11.10.2020         2\11.10.2020         2.cpp(11,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Creap\OneDrive\Desktop\All C++ Projects\11.10.2020         2\11.10.2020         2\11.10.2020         2.cpp(36): message : see reference to function template instantiation 'void uniqueInOrder<char>(const std::vector<char,std::allocator<char>> &)' being compiled
-  11.10.2020         2.vcxproj -> C:\Users\Creap\OneDrive\Desktop\All C++ Projects\11.10.2020         2\Debug\11.10.2020         2.exe
