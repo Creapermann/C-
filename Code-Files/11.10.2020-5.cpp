@@ -14,7 +14,7 @@ returns[]*/
 
 
 #include <iostream>
-#include <vector>                 //al       // og        // ud
+#include <vector>
 #include <algorithm>
 #include <string>
 #include <set>
@@ -23,8 +23,8 @@ void clearConsole() {
     system("CLS");
 }
 
-void printVector(std::vector<std::string> v) {
-    for (std::string s : v) {
+void printVector(const std::vector<std::string> &v) {
+    for (auto s : v) {
         std::cout << s << std::endl;
     }
     if (v.size() == 0) {
@@ -32,7 +32,7 @@ void printVector(std::vector<std::string> v) {
     }
 }
 
-std::vector<std::string> sortVector(std::vector<std::string> v) {
+std::vector<std::string> sortVector(std::vector<std::string> &v) {
     std::sort(v.begin(), v.end(), [](const std::string& s1, const std::string& s2) {return s1 < s2; });
 
     return v;
@@ -43,8 +43,8 @@ std::vector<std::string> retSubstringsAsVector(std::vector<std::string> n1Vec, s
 
     std::set<std::string> SubstringSet;
 
-    for (int i = 0; i < n2Vec.size(); i++) {
-        for (int k = 0; k < n1Vec.size(); k++) {
+    for (auto i = 0; i < n2Vec.size(); i++) {
+        for (auto k = 0; k < n1Vec.size(); k++) {
             if (n2Vec[i].find(n1Vec[k]) != std::string::npos){
                 SubstringSet.insert(n1Vec[k]);
             }
@@ -60,12 +60,12 @@ void getInput(std::vector<std::string> &firstInputVec, std::vector<std::string> 
 
     std::cout << "Write how many sub-strings do you want to write into your first vector?" << std::endl;
     
-    int amountOfStringInFirst;
+    auto amountOfStringInFirst = 1;
     std::cin >> amountOfStringInFirst;
     clearConsole();
     std::cout << "Give in your sub-strings sepperated by a 'ENTER'" << std::endl;
     
-    for (int i = 0; i < amountOfStringInFirst; i++) {
+    for (auto i = 0; i < amountOfStringInFirst; i++) {
         std::string a;
         std::cin >> a;
         firstInputVec.push_back(a);
@@ -74,7 +74,7 @@ void getInput(std::vector<std::string> &firstInputVec, std::vector<std::string> 
 
     std::cout << "Write how many strings do you want to write into your secound vector?" << std::endl;
 
-    int amountOfStringInSecound;
+    auto amountOfStringInSecound = 1;
     std::cin >> amountOfStringInSecound;
     clearConsole();
     std::cout << "Give in your strings sepperated by a 'ENTER'" << std::endl;
@@ -92,8 +92,8 @@ int main()
 {
     std::vector<std::string> vec1, vec2;
     getInput(vec1, vec2);
-    std::vector<std::string> substringVec = retSubstringsAsVector(vec1, vec2);
-    std::vector<std::string> mainVec = sortVector(substringVec);
+    auto substringVec = retSubstringsAsVector(vec1, vec2);
+    auto mainVec = sortVector(substringVec);
     printVector(mainVec);
 
 

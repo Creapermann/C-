@@ -43,7 +43,7 @@ void printOut(const std::vector<std::string> &namesVec, const int &namesAmount) 
 std::vector<std::string> retNamesVec(int &namesAmount) {
     std::vector<std::string> namesVec;
 
-    bool nameLoopIsOver = false;
+    auto nameLoopIsOver = false;
     while (nameLoopIsOver != true) {
         std::cout << "Type in a name (write 'stop!' when you finished)" << std::endl;
         std::string name;
@@ -63,8 +63,8 @@ std::vector<std::string> retNamesVec(int &namesAmount) {
 
 int main()
 {
-    int namesAmount = 0;
-    std::vector<std::string> namesVec = retNamesVec(namesAmount);
+    auto namesAmount = 0;
+    auto namesVec = retNamesVec(namesAmount);
     printOut(namesVec, namesAmount);
 
     int eND;

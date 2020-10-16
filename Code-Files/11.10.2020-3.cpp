@@ -25,7 +25,7 @@ in C return NULL) and be ready for anything else which is not clearly specified*
 #include <iostream>
 #include <vector>
 
-int returnTribonacciVal(std::vector<int> mainVec){
+int returnTribonacciVal(const std::vector<int> &mainVec){
 
     return mainVec[mainVec.size() - 1] + mainVec[mainVec.size() - 2] + mainVec[mainVec.size() - 3];
 }
@@ -34,9 +34,9 @@ int main()
 {
     std::vector<int> mainVec;
 
-    int num1;
-    int num2;
-    int num3;
+    auto num1 = 0;
+    auto num2 = 0;
+    auto num3 = 0;
 
     std::cout << "What 3 numbers do you want to start with?" << std::endl;
     std::cin >> num1;
@@ -51,15 +51,15 @@ int main()
     mainVec.push_back(num3);
 
     std::cout << "How far do you want to go?" << std::endl;
-    int range;
+    auto range = 3;
     std::cin >> range;
     system("CLS");
 
-    for (int i = 0; i < range; i++) {
+    for (auto i = 0; i < range; i++) {
         mainVec.push_back(returnTribonacciVal(mainVec));
     }
 
-    for (int i : mainVec) {
+    for (auto i : mainVec) {
         std::cout << i << std::endl;
     }
 }

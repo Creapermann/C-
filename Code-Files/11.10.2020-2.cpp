@@ -12,7 +12,7 @@ template <typename T>  void uniqueInOrder(const std::vector<T>& iterable) {
 
 	std::vector<T> endVec;
 
-	for (int i = 0; i < iterable.size(); i++) {
+	for (auto i = 0; i < iterable.size(); i++) {
 		if (i == 0) {
 			endVec.push_back(iterable[i]);
 		}

@@ -16,19 +16,17 @@ Examples:
 #include <numeric>
 #include <vector>
 
-//git add start.h
 
 int retResult(std::string &inputNumString) {
 
-    
-    int Result = 10;
+    auto Result = 10;
 
     while (std::to_string(Result).size() != 1)
     {
         std::vector<int> seppedInts;
-        for (int i = 0; i < inputNumString.size(); i++) {
-            char k = inputNumString[i];
-            int j = k - 48;                                                                  //-48 Ascci tabelle -> 0
+        for (auto i = 0; i < inputNumString.size(); i++) {
+            auto k = inputNumString[i];
+            auto j = k - 48;                                                                  //-48 Ascci tabelle -> 0
             seppedInts.push_back(j);
         }
 
@@ -44,7 +42,7 @@ std::string convIntToString(const int &inputNum) {
 }
 
 int getInput() {
-    int i;
+    auto i = 0;
     std::cin >> i;
 
     return i;
@@ -52,8 +50,8 @@ int getInput() {
 
 int main()
 {
-    int inputNum = getInput();
-    std::string inputNumString = convIntToString(inputNum);
+    auto inputNum = getInput();
+    auto inputNumString = convIntToString(inputNum);
     std::cout << retResult(inputNumString) << std::endl;
 
 

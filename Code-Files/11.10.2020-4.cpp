@@ -11,13 +11,13 @@ of errors and the denominator the length of the control string. Don't reduce thi
 #include <vector>
 
 
-int retAmountOfErrors(std::string inputString) {
+int retAmountOfErrors(const std::string &inputString) {
 
-    int amountOfErrors = 0;
+    auto amountOfErrors = 0;
 
     std::vector<char> stringVec(inputString.begin(), inputString.end());
 
-    for (int i = 0; i < stringVec.size(); i++) {
+    for (auto i = 0; i < stringVec.size(); i++) {
         switch (stringVec[i]) {
         case 'a':
             break;
@@ -59,7 +59,7 @@ int main(){
     std::string inputString;
     std::cin >> inputString;
 
-    int amountOfErrors = retAmountOfErrors(inputString);
+    auto amountOfErrors = retAmountOfErrors(inputString);
     std::cout << "error_printer(s) => '" << std::to_string(amountOfErrors) << "/" << inputString.length() << "'";
 
     int eND;
