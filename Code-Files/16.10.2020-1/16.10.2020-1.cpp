@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <unordered_set>
-
+#include <cassert>
 
 //utility-Methods
 void clearCons() {
@@ -87,8 +87,9 @@ int main()
     //Vars
     auto allowedAmount = 1;
     std::vector<int> mainVec = { 20, 21, 32, 47, 20, 32, 32 };
-
-
+    auto res=std::vector<int>{20,21,32,47};
+    
     loopThroughMethods(mainVec, allowedAmount);
+    assert(res.size()==mainVec.size());
 }
 
