@@ -35,9 +35,9 @@ bool checkIfEverythingBelowAllowedAmount(const std::vector<int> &amountVec, cons
 void eraseAndFindElements(const std::vector<int> &noDoubleValuesVec, std::vector<int> &mainVec, const std::vector<int> &amountVec, const int &allowedAmount) {
 
     for (auto i = 0; i < amountVec.size(); i++) {
-        if (amountVec[i] > allowedAmount) {   //checks if the amount of the element is allowed
+        if (amountVec[i] > allowedAmount) {                                             //checks if the amount of the element is allowed
             auto it = std::find(mainVec.begin(), mainVec.end(), noDoubleValuesVec[i]);  //if the amount of the element is not allowed, the type of the element is getting found
-            mainVec.erase(it);         //if the amount of the element is not allowed, the previous location is erased (marked by an iterator)
+            mainVec.erase(it);                                                          //if the amount of the element is not allowed, the previous location is erased (marked by an iterator)
         }
     }
 }
@@ -80,42 +80,15 @@ void loopThroughMethods(std::vector<int> &mainVec, const int &allowedAmount) {
     
 }
 
-//gets the user input for "mainVec" and "allowedAmount"
-void getInput(std::vector<int> &mainVec, int &allowedAmount) {
-
-    bool inputLoopStop = false;
-
-    while (inputLoopStop != true) {
-        auto i = 0;
-        std::cout << "Please type in your data!" << std::endl;
-        std::cout << "Type in -1 to end the input loop!" << std::endl;
-        std::cin >> i;
-
-        clearCons();
-
-        if (i != -1) {
-            mainVec.push_back(i);
-        }
-        else {
-            inputLoopStop = true;
-        }
-    }
-
-    std::cout << "Type in how much data of the same type is allowed!" << std::endl;
-    std::cin >> allowedAmount;
-    clearCons();
-}
 
 
 int main()
 {
     //Vars
-    auto allowedAmount = 0;
-    std::vector<int> mainVec;
+    auto allowedAmount = 1;
+    std::vector<int> mainVec = { 20, 21, 32, 47, 20, 32, 32 };
 
 
-    
-    getInput(mainVec, allowedAmount);
     loopThroughMethods(mainVec, allowedAmount);
 }
 
