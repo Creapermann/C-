@@ -13,6 +13,24 @@ return std::find_if(first,last,[value=value,&Nth=Nth](auto &o)->bool
 });
 }
 
+//remove value from the nth ocurrence in one vector
+template<class InputIterator, class T >
+InputIterator remove_from_nth(InputIterator first, InputIterator last,  const T &value,int Nth)
+{
+
+auto it=find_nth(first,last,value, Nth);
+if (last==it)
+    return last;
+return remove(it,last,value);
+}
+
+
+struct histogram{
+    int motiv;
+    int cnt;
+};
+
+using Vcthistogram=std::vector<histogram>;
 
 class remove_motives{
 public:
@@ -21,7 +39,7 @@ std::vector<int> result() const;
 
 private:
    void printMainVec();
-   std::vector<int> countMotives();
+   std::vector<int> findBoringMotives();
 
 
    std::vector<int> motives_;
