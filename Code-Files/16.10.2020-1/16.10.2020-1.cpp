@@ -4,92 +4,87 @@
 #include <unordered_set>
 #include <cassert>
 
+struct histogram{
+
+   int cnt;
+   int elem;
+};
+using vectorHistogram = std::vector<histogram>;
+
 //utility-Methods
 void clearCons() {
-    system("CLS");
+   system("CLS");
 }
-
-
 
 
 //prints out the "mainVec"
 void printMainVec(std::vector<int> mainVec) {
-    for (auto i : mainVec) {
-        std::cout << i << std::endl;
-    }
+   for (auto i : mainVec) {
+      std::cout << i << std::endl;
+   }
 }
 
-//checks if every value in the "amountVec" (which includes the amount of the multiple exictenze of the data out of the "mainVec") and ends the while loop
-bool checkIfEverythingBelowAllowedAmount(const std::vector<int> &amountVec, const int &allowedAmount, bool &everythingIsBelowAllowedAmount) {
 
-    for (auto i = 0; i < amountVec.size(); i++) {
-        if (amountVec[i] <= allowedAmount) {               //turns the bool "everythingIsBelowAllowedAmount" -> true if every element in the "amountVec" is below                                                 */
-            everythingIsBelowAllowedAmount = true;         //the int "allowedAmount" which announces how often a duplicate of an element is allowed to exist
-        }
-    }
 
-    return everythingIsBelowAllowedAmount;
+std::vector<int> removeElements(int howManyTooMuch, const std::vector<int> &mainVec, int motive){
+   auto res = mainVec;
+   for(auto i = 0; i < howManyTooMuch; i++){
+      auto it = std::find(res.rbegin(), res.rend(), motive);
+      res.erase( std::next(it).base() );               //convertierung von reverse Iterator zu normal Iterator
+   }
+
+   return  res;
 }
+
 
 //finds and erases the duplicates which are not allowed to exist 
-void eraseAndFindElements(const std::vector<int> &noDoubleValuesVec, std::vector<int> &mainVec, const std::vector<int> &amountVec, const int &allowedAmount) {
+std::vector<int> sortUnAllowedElements( const std::vector<int> &mainVec, vectorHistogram &HistogramVc, const int &allowedAmount) {
 
-    for (auto i = 0; i < amountVec.size(); i++) {
-        if (amountVec[i] > allowedAmount) {                                             //checks if the amount of the element is allowed
-            auto it = std::find(mainVec.begin(), mainVec.end(), noDoubleValuesVec[i]);  //if the amount of the element is not allowed, the type of the element is getting found
-            mainVec.erase(it);                                                          //if the amount of the element is not allowed, the previous location is erased (marked by an iterator)
-        }
-    }
+   //setp 1 -> partition to find which objects out of "HistogramVc" have a higher cnt than "allowedAmount"
+   //step 2 -> for-loop for everything in "HistogramVc" to it, get out how many elems too much and call removeFromNthElement
+   //step 3 -> print
+   auto res = mainVec;
+
+   auto it = std::partition(HistogramVc.begin(), HistogramVc.end(), [allowedAmount = allowedAmount](auto &o) -> bool {
+      return o.cnt > allowedAmount;
+   });
+
+   auto dist = static_cast<size_t>(std::distance(HistogramVc.begin(), it));
+   for(auto i = 0u; i < dist; i++){
+      int howManyTooMuch = HistogramVc[i].cnt - allowedAmount;
+      res = removeElements(howManyTooMuch, res, HistogramVc[i].elem);
+   }
+   return res;
 }
 
-//refreshes the "amountVec" to hold the amount of duplicates of the mainVec up to date after getting deleted
-void refreshNoDoubleValuesVec(std::vector<int> &noDoubleValuesVec, const std::vector<int> &mainVec, std::vector<int> &amountVec) {
+vectorHistogram initHistogram(std::vector<int> &mainVec, std::vector<int> &noDoubleValuesVec){
+   auto res = vectorHistogram(noDoubleValuesVec.size());
 
-    auto t = 0;
-    for (auto i = 0; i < noDoubleValuesVec.size(); i++) {
-        for (auto k = 0; k < mainVec.size(); k++) {
-            if (noDoubleValuesVec[i] == mainVec[k]) {       //gets how many duplicates of the element exists
-                t++;                                        //adds up a variable for 1 everytime a duplicate of that element was found
-            }
-        }
-        amountVec.push_back(t);                             //ads this variable which was added up a certain time before to the "amountVec"
-        t = 0;                                              //resets this varibable
-    }
+   std::transform(noDoubleValuesVec.begin(), noDoubleValuesVec.end(), res.begin(), [mainVec = mainVec](auto &o) -> histogram {
+      auto temp = histogram();
+      temp.elem = o;
+      temp.cnt = std::count(mainVec.begin(), mainVec.end(), o);
+
+      return temp;
+   });
+
+   return res;
 }
-
-//is looping through all methods
-void loopThroughMethods(std::vector<int> &mainVec, const int &allowedAmount) {
-    
-    std::unordered_set<int> noDoubleValuesUSet(mainVec.begin(), mainVec.end());
-    std::vector<int> noDoubleValuesVec(noDoubleValuesUSet.begin(), noDoubleValuesUSet.end());        //creates a vector with every value just once
-
-    std::vector<int> amountVec;
-
-    
-    auto everythingIsBelowAllowedAmount = false;
-    while (everythingIsBelowAllowedAmount != true) {
-
-        refreshNoDoubleValuesVec(noDoubleValuesVec, mainVec, amountVec);
-        eraseAndFindElements(noDoubleValuesVec, mainVec, amountVec, allowedAmount);
-        checkIfEverythingBelowAllowedAmount(amountVec, allowedAmount, everythingIsBelowAllowedAmount);
-
-        amountVec.clear();
-    }
-
-    printMainVec(mainVec);
-    
-}
-
-
 
 int main()
 {
-    //Vars
-    auto allowedAmount = 1;
-    std::vector<int> mainVec = { 20, 21, 32, 47, 20, 32, 32 };
-    auto res=std::vector<int>{20,21,32,47};
-    
-    loopThroughMethods(mainVec, allowedAmount);
-    assert(res.size()==mainVec.size());
+   //Vars
+   auto allowedAmount = 2;
+   std::vector<int> mainVec = { 20, 21,20,21, 32, 47, 20, 32, 20, 21, 32 };
+
+   std::unordered_set<int> noDoubleValuesUSet(mainVec.begin(), mainVec.end());
+   std::vector<int> noDoubleValuesVec(noDoubleValuesUSet.begin(), noDoubleValuesUSet.end());        //creates a vector with every value just once
+
+   auto vctHist = initHistogram(mainVec, noDoubleValuesVec);
+
+
+   auto res = sortUnAllowedElements(mainVec, vctHist, allowedAmount);
+
+   printMainVec(res);
 }
 
