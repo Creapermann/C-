@@ -6,13 +6,13 @@
 #include <cassert>
 
 
-struct histogram {
+struct histogram {                                       //creates the histogram stuct
 
     int cnt;
     int elem;
 };
 
-using vectorHistogram = std::vector<histogram>;
+using vectorHistogram = std::vector<histogram>;        //creates a new type "vectorHistogram"
 
 
 
@@ -22,8 +22,9 @@ public:
 
 private:
     //Methods
-    void printOutputVec(std::vector<int> mainVec);
-    std::vector<int> removeElements(int howManyTooMuch, const std::vector<int>& mainVec, int motive);
-    std::vector<int> sortUnAllowedElements(const std::vector<int>& mainVec, vectorHistogram& HistogramVc, const int& allowedAmount);
-    vectorHistogram initHistogramVector(std::vector<int>& mainVec, std::vector<int>& noDoubleValuesVec);
+    void printOutputVec(std::vector<int> mainVec);        //prints out the given vector
+    std::vector<int> removeMotives(int howManyTooMuch, const std::vector<int>& mainVec, int motive);                            //!Gets called by "sortUnAllowedElements"! removes the given elements
+    std::vector<int> sortUnAllowedElements(const std::vector<int>& mainVec, vectorHistogram& HistogramVc, int allowedAmount);    /*sorts the Elements with duplicates above "allowedAmount"
+                                                                                                                                   and calls "removeElements" for them*/
+    vectorHistogram initHistogramVector(std::vector<int>& mainVec, std::vector<int>& noDoubleValuesVec);                         //inits the Histogram vector
 };
