@@ -51,14 +51,16 @@ std::vector<int> remove_motives::findBoringMotives()
 
     Vcthistogram histograms(uniq_motives_.size());
     //build histogram
-    std::transform(begin(uniq_motives_),end(uniq_motives_),histograms.begin(),[this](auto &o)->histogram
+    std::transform(begin(uniq_motives_),end(uniq_motives_),histograms.begin(),
+            [this](auto &o)->histogram
     {
         int cnt=std::count(begin(motives_),end(motives_),o); //count ocurrence of o
         return histogram {o,
                     cnt};
     });
     //find boring motives
-    auto itPart=std::partition(begin(histograms),end(histograms),[amount=amount_](auto &o)
+    auto itPart=std::partition(begin(histograms),end(histograms),
+                               [amount=amount_](auto &o)-> bool
     {
         return o.cnt > amount;
     });
@@ -66,10 +68,12 @@ std::vector<int> remove_motives::findBoringMotives()
     auto dist=static_cast<size_t>(std::distance(begin(histograms),itPart));
     //return boring motives as vector of ints
     std::vector <int> res(dist);
-    std::transform(begin(histograms),end(histograms),res.begin(),[](auto &o)
+
+    std::transform(begin(histograms),itPart,res.begin(),[](auto &o)->int
     {
         return o.motiv;
     });
+    assert(res.size()==histograms.size());
     return res;
 }
 
