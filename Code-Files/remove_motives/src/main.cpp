@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <cassert>
 #include "remove_motives/remove_motives.h"
+#include "remove_motives/diffN.h"
+
 //utility-Methods
 void clearCons() {
     system("CLS");
@@ -37,6 +39,9 @@ int main()
 
    auto it2=find_nth(begin(mainVec),end(mainVec),32,3);
    assert(6==std::distance(begin(mainVec),it2));
+
+   auto diff2=diffN({24,3,8,5,1,26,7,6},2);
+   diff2.printRes(diff2.res());
 
 }
 

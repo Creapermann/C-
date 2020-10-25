@@ -8,8 +8,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/
 target_sources(${PROJECT_NAME} PRIVATE
    src/main
    src/remove_motives
-
+   src/diffN
    include/remove_motives/remove_motives.h
+   include/remove_motives/diffN.h
    )
+target_compile_features(${PROJECT_NAME}  PUBLIC cxx_std_20 )
 target_link_libraries(${PROJECT_NAME} PRIVATE  stdc++)
 install(TARGETS ${PROJECT_NAME} DESTINATION "${bin_dest}")

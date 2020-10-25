@@ -73,7 +73,7 @@ std::vector<int> remove_motives::findBoringMotives()
     {
         return o.motiv;
     });
-    assert(res.size()==histograms.size());
+    assert(res.size()==dist);
     return res;
 }
 
