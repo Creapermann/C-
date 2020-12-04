@@ -13,4 +13,5 @@ private:
     void mainSort(TIntVec&, int, int);
     int partitioning(TIntVec&, int, int);
     void printResVec(TIntVec, int);
-};  
+    int partitioning2(TIntVec &a, int s, int e);
+};

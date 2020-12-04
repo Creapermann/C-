@@ -1,5 +1,5 @@
 #include "quickSort.hpp"
-
+#include <cassert>
 
 quickSort::quickSort(TIntVec a, int n){
     mainSort(a, 0, n);
@@ -9,16 +9,41 @@ quickSort::quickSort(TIntVec a, int n){
 
 void quickSort::mainSort(TIntVec &a, int s, int e){
 
-    std::cout << s << "  " << e << std::endl;
+    std::cout <<"s: " <<s << ",e:  " << e << std::endl;
     if(s == e){
         std::cout << "Fertig" << std::endl;
         return;
     }
-    int pIndex = partitioning(a, s, e);
+    int pIndex = partitioning2(a, s, e);
     std::cout << "pindex: " << pIndex << std::endl;
-    mainSort(a, 0, pIndex - 1);
-    mainSort(a, pIndex + 1, e);
+    if (pIndex > 0) //check if you can pIndex decrement pIndex
+       mainSort(a, 0, pIndex - 1);
+    if(pIndex < e)//check if you can increment pIndex
+       mainSort(a, pIndex + 1, e);
 }
+
+//[0,4)  0,1,2,3        Close Open interwall
+//[0,4]  0,1,2,3,4      Close Close inverwall
+
+
+int quickSort::partitioning2(TIntVec &a, int s, int e){
+    int pIndex = s+ (e-s)/2; //index ALWAYS in the middle
+
+    //left side of array , at the end of loop all elements from the range [s,pIndex) are less than a[pIndex]
+    for(auto i = s; i < pIndex; i++)
+       if(a[i]> a[pIndex])
+          std::swap(a[i],a[pIndex]);
+//right side of array , at the end of loop all elements from the range [pIndex+1,e) are greather than a[pIndex]
+    for(auto i = pIndex+1; i < e; i++)
+       if(a[i] < a[pIndex])
+          std::swap(a[i],a[pIndex]);
+
+
+
+
+    return pIndex;
+}
+
 
 int quickSort::partitioning(TIntVec &a, int s, int e){
     int pIndex = s;

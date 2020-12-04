@@ -4,7 +4,7 @@
 
 int main(){
 
-    std::vector<int> a = { 3, 19, 32 , 7, 21, 19 };
+    std::vector<int> a = { 3, 19, 32 , 7, 21, 19 ,45,0,67};
 
     int n = a.size();
 
