@@ -10,15 +10,14 @@ quickSort::quickSort(TIntVec a, int n){
 void quickSort::mainSort(TIntVec &a, int s, int e){
 
     std::cout <<"s: " <<s << ",e:  " << e << std::endl;
-    if(s == e){
-        std::cout << "Fertig" << std::endl;
-        return;
-    }
+
     int pIndex = partitioning2(a, s, e);
     std::cout << "pindex: " << pIndex << std::endl;
-    if ( s < pIndex ) //check if you can  decrement pIndex
+    if ( s == pIndex ) //check if you can  decrement pIndex
+       return;
        mainSort(a, s, pIndex - 1);
-    if(pIndex < e)//check if you can increment pIndex
+    if(pIndex == e)//check if you can increment pIndex
+       return;
        mainSort(a, pIndex + 1, e);
 }
 
