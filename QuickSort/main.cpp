@@ -1,10 +1,10 @@
 #include <iostream>
 
 #include "quickSort.hpp"
-
+#include <cassert>
 int main(){
 
-    std::vector<int> a = { 3, 19, 32 , 7, 21, 19 ,45,0,67};
+    std::vector<int> a = {  19,3,78,1,0,23,100,5,3,0,56,4,1};
 
     int n = a.size();
 
