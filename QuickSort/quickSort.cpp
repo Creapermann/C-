@@ -16,8 +16,8 @@ void quickSort::mainSort(TIntVec &a, int s, int e){
     }
     int pIndex = partitioning2(a, s, e);
     std::cout << "pindex: " << pIndex << std::endl;
-    if (pIndex > 0) //check if you can pIndex decrement pIndex
-       mainSort(a, 0, pIndex - 1);
+    if ( s < pIndex ) //check if you can  decrement pIndex
+       mainSort(a, s, pIndex - 1);
     if(pIndex < e)//check if you can increment pIndex
        mainSort(a, pIndex + 1, e);
 }
